@@ -1,0 +1,14 @@
+OBJ = f1.o f2.o
+rez: Eltex.o libfun.a
+	gcc Eltex.o -L. -lfun -o rez
+Eltex.o: Eltex.c 
+	gcc -c Eltex.c    
+libfun.a: $(OBJ)
+	ar rc libfun.a $(OBJ)
+	ranlib libfun.a 
+f1.o: f1.c
+	gcc -c f1.c
+f2.o: f2.c
+	gcc -c f2.c 
+clean:
+	rm rez $(OBJ) Eltex.o libfun.a 
