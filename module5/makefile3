@@ -1,0 +1,16 @@
+OBJ = f1.o f2.o
+rez: Eltex.o libfundyn.so
+	gcc Eltex.o -L. -lfundyn -o rez
+	echo "Curent LD_LIBRARY_PATH is:$(LD_LIBRARY_PATH)"
+	LD_LIBRARY_PATH=$(pwd):${LD_LIBRARY_PATH}
+	export LD_LIBRARY_PATH
+Eltex.o: Eltex.c 
+	gcc -c Eltex.c    
+libfundyn.so: $(OBJ)
+	gcc -shared -o libfundyn.so $(OBJ)
+f1.o: f1.c
+	gcc -fPIC -c f1.c
+f2.o: f2.c
+	gcc -fPIC -c f2.c 
+clean:
+	rm rez $(OBJ) Eltex.o libfundyn.so 
